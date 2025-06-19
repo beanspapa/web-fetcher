@@ -5,7 +5,7 @@
  * 기본 설정과 병합하여 최종 설정을 생성합니다.
  * 
  * 지원하는 환경변수:
- * - NEWS_OUTPUT_FORMAT: 출력 형식 (json | csv)
+ * - NEWS_OUTPUT_FORMAT: 출력 형식 (json | csv | xml)
  * - NEWS_OUTPUT_DIR: 출력 디렉터리 경로
  * - NEWS_BROWSER_HEADLESS: 헤드리스 모드 (true | false)
  * - NEWS_TIMEOUT: 브라우저 타임아웃 (밀리초)
@@ -62,9 +62,9 @@ function parseNumber(value: string | undefined): number | undefined {
  * @param value - 환경변수 값
  * @returns 유효한 형식 또는 undefined
  */
-function parseOutputFormat(value: string | undefined): 'json' | 'csv' | undefined {
+function parseOutputFormat(value: string | undefined): 'json' | 'csv' | 'xml' | undefined {
   if (value === undefined) return undefined;
-  return (value === 'json' || value === 'csv') ? value : undefined;
+  return (value === 'json' || value === 'csv' || value === 'xml') ? value : undefined;
 }
 
 /**
@@ -81,13 +81,13 @@ function parseOutputFormat(value: string | undefined): 'json' | 'csv' | undefine
 export function loadEnvironmentConfig(): EnvironmentConfig {
   return {
     output: {
-      format: parseOutputFormat(process.env.NEWS_OUTPUT_FORMAT),
-      directory: process.env.NEWS_OUTPUT_DIR || undefined
+      format: (process.env.NEWS_OUTPUT_FORMAT as 'json' | 'csv') || undefined,
+      directory: process.env.NEWS_OUTPUT_DIR || undefined,
     },
     browser: {
-      headless: parseBoolean(process.env.NEWS_BROWSER_HEADLESS),
-      timeout: parseNumber(process.env.NEWS_TIMEOUT)
-    }
+      headless: process.env.NEWS_BROWSER_HEADLESS ? process.env.NEWS_BROWSER_HEADLESS === 'true' : undefined,
+      timeout: process.env.NEWS_TIMEOUT ? parseInt(process.env.NEWS_TIMEOUT, 10) : undefined,
+    },
   };
 }
 
@@ -101,27 +101,19 @@ export function loadEnvironmentConfig(): EnvironmentConfig {
  * @returns 기본값과 병합된 최종 설정
  */
 export function mergeWithDefaults(envConfig: EnvironmentConfig): NewsConfig {
-  // 기본 설정의 깊은 복사본 생성
-  const merged: NewsConfig = JSON.parse(JSON.stringify(defaultConfig));
-  
-  // 환경변수 값이 있으면 덮어쓰기
-  if (envConfig.output.format !== undefined) {
-    merged.output.format = envConfig.output.format;
-  }
-  
-  if (envConfig.output.directory !== undefined) {
-    merged.output.directory = envConfig.output.directory;
-  }
-  
-  if (envConfig.browser.headless !== undefined) {
-    merged.browser.headless = envConfig.browser.headless;
-  }
-  
-  if (envConfig.browser.timeout !== undefined) {
-    merged.browser.timeout = envConfig.browser.timeout;
-  }
-  
-  return merged;
+  return {
+    ...defaultConfig,
+    output: {
+      ...defaultConfig.output,
+      ...(envConfig.output.format && { format: envConfig.output.format }),
+      ...(envConfig.output.directory && { directory: envConfig.output.directory }),
+    },
+    browser: {
+      ...defaultConfig.browser,
+      ...(envConfig.browser.headless !== undefined && { headless: envConfig.browser.headless }),
+      ...(envConfig.browser.timeout && { timeout: envConfig.browser.timeout }),
+    },
+  };
 }
 
 /**
