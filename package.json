@@ -1,0 +1,27 @@
+{
+  "name": "web-fetcher",
+  "version": "1.0.0",
+  "description": "`web-fetcher`는 [playwright-ghost](https://github.com/berstend/puppeteer-extra/tree/master/packages/playwright-extra) 라이브러리를 활용하여 headless 브라우징 환경에서 웹 컨텐츠를 자동으로 수집하는 Node.js 기반의 프로젝트입니다.",
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "@vitest/ui": "^3.2.4",
+    "happy-dom": "^18.0.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
