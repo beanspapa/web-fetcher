@@ -38,6 +38,8 @@ export interface NewsSiteConfig {
     /** 페이지 로딩 완료 조건 */
     waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
   };
+  /** 요청 간 지연 시간 (밀리초) */
+  requestDelay?: number;
 }
 
 /**
@@ -87,7 +89,7 @@ export function validateConfig(config: NewsConfig): void {
 export const defaultConfig: NewsConfig = {
   sites: {
     'example-news': {
-      name: 'example-news',
+      name: 'Example News',
       baseUrl: 'https://example.com',
       selectors: {
         title: 'h1',
@@ -96,7 +98,8 @@ export const defaultConfig: NewsConfig = {
         publishDate: '.date'
       },
       urlPatterns: ['https://example.com/news/*'],
-      waitOptions: { timeout: 30000 }
+      waitOptions: { timeout: 30000 },
+      requestDelay: 1000
     }
   },
   output: {

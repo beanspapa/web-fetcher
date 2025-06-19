@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { NewsConfig, NewsSiteConfig, validateConfig } from '../src/config.js';
+import { NewsConfig, NewsSiteConfig, validateConfig } from '../src/config';
 
 describe('News Configuration Types', () => {
   it('should define valid news site configuration', () => {
