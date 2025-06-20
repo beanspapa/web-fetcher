@@ -48,4 +48,6 @@ playwright-ghost를 활용한 헤드리스 브라우저 자동화 시스템 구�
 약 3-4시간
 
 ### 다음 단계
-Phase 5: 뉴스 페이지 네비게이션 모듈 
+이 문서를 phase4-completed.md로 이름 변경
+project-tracker.md 파일 업데이트
+Phase 5: 뉴스 페이지 네비게이션 모듈 구현 (task-phase5.md) 
