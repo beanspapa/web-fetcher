@@ -5,7 +5,7 @@ import { ConfigManager } from '../src/config-manager';
 
 describe('Pagination Navigation', () => {
   let newsNavigator: NewsNavigator;
-  let mockBrowser: BrowserIntegration;
+  let mockBrowser: any;
   let mockConfigManager: ConfigManager;
 
   beforeEach(() => {
@@ -17,14 +17,14 @@ describe('Pagination Navigation', () => {
       getPageTitle: vi.fn(),
       initialize: vi.fn(),
       cleanup: vi.fn(),
+      waitForPageLoad: vi.fn(),
       // 페이지네이션 관련 Mock 메소드들
       findPaginationControls: vi.fn(),
       getCurrentPageNumber: vi.fn(),
       getTotalPages: vi.fn(),
       clickNextPage: vi.fn(),
       clickPreviousPage: vi.fn(),
-      clickPageNumber: vi.fn(),
-      waitForPageLoad: vi.fn()
+      clickPageNumber: vi.fn()
     } as any;
 
     mockConfigManager = {
