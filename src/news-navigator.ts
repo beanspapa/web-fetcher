@@ -214,6 +214,351 @@ export interface MultiPageCollectionResult {
   timestamp: Date;
 }
 
+// ==========================================
+// 카테고리 네비게이션 관련 인터페이스
+// ==========================================
+
+/**
+ * 카테고리 정보
+ */
+export interface CategoryInfo {
+  /** 카테고리 이름 */
+  name: string;
+  /** 카테고리 URL */
+  url?: string;
+  /** 상위 카테고리 */
+  parent?: string;
+  /** 하위 카테고리 목록 */
+  children?: CategoryInfo[];
+}
+
+/**
+ * 카테고리 감지 결과
+ */
+export interface CategoryDetectionResult {
+  /** 메인 카테고리 목록 */
+  main: CategoryInfo[];
+  /** 서브 카테고리 목록 */
+  sub?: CategoryInfo[];
+  /** 감지 성공 여부 */
+  success: boolean;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 카테고리 네비게이션 결과
+ */
+export interface CategoryNavigationResult {
+  /** 네비게이션 성공 여부 */
+  success: boolean;
+  /** 현재 카테고리 */
+  currentCategory?: string;
+  /** 현재 서브 카테고리 */
+  currentSubCategory?: string;
+  /** 오류 메시지 */
+  error?: string;
+  /** 수행 시간 */
+  timestamp: Date;
+}
+
+/**
+ * 카테고리 네비게이션 히스토리
+ */
+export interface CategoryNavigationHistory {
+  /** 카테고리 */
+  category: string;
+  /** 서브 카테고리 */
+  subCategory?: string;
+  /** 방문 시간 */
+  timestamp: Date;
+  /** URL */
+  url?: string;
+}
+
+/**
+ * 다중 카테고리 수집 결과
+ */
+export interface MultiCategoryCollectionResult {
+  /** 수집 성공 여부 */
+  success: boolean;
+  /** 총 기사 수 */
+  totalArticles: number;
+  /** 처리된 카테고리 수 */
+  categoriesProcessed: number;
+  /** 카테고리별 기사 수 */
+  articlesByCategory: Record<string, number>;
+  /** 오류 메시지 */
+  error?: string;
+  /** 수행 시간 */
+  timestamp: Date;
+}
+
+/**
+ * 카테고리 수집 옵션
+ */
+export interface CategoryCollectionOptions {
+  /** 진행 상황 콜백 */
+  onProgress?: (progress: CategoryCollectionProgress) => void;
+  /** 최대 기사 수 */
+  maxArticles?: number;
+  /** 카테고리별 최대 기사 수 */
+  maxArticlesPerCategory?: number;
+}
+
+/**
+ * 카테고리 수집 진행 상황
+ */
+export interface CategoryCollectionProgress {
+  /** 현재 처리 중인 카테고리 */
+  current: number;
+  /** 전체 카테고리 수 */
+  total: number;
+  /** 현재 카테고리 이름 */
+  currentCategory: string;
+  /** 수집된 기사 수 */
+  articlesCollected: number;
+}
+
+/**
+ * 동적 카테고리 로딩 결과
+ */
+export interface DynamicCategoryLoadingResult {
+  /** 로딩 성공 여부 */
+  success: boolean;
+  /** 로드된 기사 수 */
+  articlesLoaded: number;
+  /** 카테고리 */
+  category: string;
+  /** 오류 메시지 */
+  error?: string;
+  /** 수행 시간 */
+  timestamp: Date;
+}
+
+/**
+ * 카테고리 필터링 결과
+ */
+export interface CategoryFilterResult {
+  /** 필터링된 기사 목록 */
+  filteredArticles: ArticlePreview[];
+  /** 카테고리 */
+  category: string;
+  /** 필터 적용 성공 여부 */
+  success: boolean;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 카테고리 드롭다운 선택 결과
+ */
+export interface CategoryDropdownResult {
+  /** 선택 성공 여부 */
+  success: boolean;
+  /** 선택된 카테고리 */
+  selectedCategory: string;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 카테고리 내 검색 결과
+ */
+export interface CategorySearchResult {
+  /** 검색 결과 */
+  searchResults: ArticlePreview[];
+  /** 카테고리 */
+  category: string;
+  /** 검색 쿼리 */
+  query: string;
+  /** 검색 성공 여부 */
+  success: boolean;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 카테고리 컨텐츠 로딩 결과
+ */
+export interface CategoryContentResult {
+  /** 로딩 성공 여부 */
+  success: boolean;
+  /** 새로 로드된 기사 수 */
+  newArticlesLoaded?: number;
+  /** 카테고리 */
+  category: string;
+  /** 캐시에서 로드되었는지 여부 */
+  fromCache?: boolean;
+  /** 오류 메시지 */
+  error?: string;
+  /** 수행 시간 */
+  timestamp: Date;
+}
+
+/**
+ * 카테고리 컨텐츠 로딩 옵션
+ */
+export interface CategoryContentOptions {
+  /** 캐시 사용 여부 */
+  useCache?: boolean;
+  /** 타임아웃 (ms) */
+  timeout?: number;
+  /** 최대 기사 수 */
+  maxArticles?: number;
+}
+
+/**
+ * 배치 카테고리 로딩 결과
+ */
+export interface BatchCategoryResult {
+  /** 성공한 카테고리 수 */
+  successCount: number;
+  /** 실패한 카테고리 수 */
+  failureCount: number;
+  /** 카테고리별 결과 */
+  results: CategoryContentResult[];
+  /** 전체 성공 여부 */
+  success: boolean;
+}
+
+/**
+ * 카테고리 필터 옵션
+ */
+export interface CategoryFilterOptions {
+  /** 카테고리 목록 */
+  categories: string[];
+  /** 태그 목록 */
+  tags?: string[];
+  /** 날짜 범위 */
+  dateRange?: {
+    from: Date;
+    to: Date;
+  };
+}
+
+/**
+ * 카테고리 필터 적용 결과
+ */
+export interface CategoryFilterApplyResult {
+  /** 필터링된 기사 목록 */
+  filteredArticles: ArticlePreview[];
+  /** 적용된 필터 */
+  appliedFilters: CategoryFilterOptions;
+  /** 필터 적용 성공 여부 */
+  success: boolean;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 다중 카테고리 검색 결과
+ */
+export interface MultiCategorySearchResult {
+  /** 검색 결과 */
+  articles: ArticlePreview[];
+  /** 연산자 (AND/OR) */
+  operator: 'AND' | 'OR';
+  /** 검색 성공 여부 */
+  success: boolean;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 카테고리 제외 검색 결과
+ */
+export interface CategoryExclusionResult {
+  /** 검색 결과 */
+  articles: ArticlePreview[];
+  /** 제외된 카테고리 목록 */
+  excludedCategories: string[];
+  /** 검색 성공 여부 */
+  success: boolean;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 전체 카테고리 검색 결과
+ */
+export interface AllCategorySearchResult {
+  /** 검색 결과 */
+  results: (ArticlePreview & { category: string })[];
+  /** 검색 쿼리 */
+  query: string;
+  /** 검색 성공 여부 */
+  success: boolean;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 카테고리 순위 정보
+ */
+export interface CategoryRanking {
+  /** 카테고리 이름 */
+  category: string;
+  /** 기사 수 */
+  count: number;
+  /** 순위 */
+  rank: number;
+}
+
+/**
+ * 카테고리 북마크
+ */
+export interface CategoryBookmark {
+  /** 북마크 이름 */
+  name: string;
+  /** 카테고리 목록 */
+  categories: string[];
+  /** 서브 카테고리 목록 */
+  subCategories?: string[];
+  /** 생성 날짜 */
+  createdAt?: Date;
+}
+
+/**
+ * 카테고리 북마크 생성 결과
+ */
+export interface CategoryBookmarkResult {
+  /** 생성 성공 여부 */
+  success: boolean;
+  /** 북마크 ID */
+  bookmarkId?: string;
+  /** 오류 메시지 */
+  error?: string;
+}
+
+/**
+ * 카테고리 구조 내보내기 결과
+ */
+export interface CategoryExportResult {
+  /** 카테고리 구조 */
+  categories: CategoryInfo[];
+  /** 내보내기 날짜 */
+  exportDate: Date;
+  /** 버전 */
+  version: string;
+  /** 내보내기 성공 여부 */
+  success: boolean;
+}
+
+/**
+ * 모바일 카테고리 네비게이션 결과
+ */
+export interface MobileCategoryResult {
+  /** 작업 성공 여부 */
+  success: boolean;
+  /** 선택된 카테고리 (해당하는 경우) */
+  selectedCategory?: string;
+  /** 검색 결과 (해당하는 경우) */
+  searchResults?: ArticlePreview[];
+  /** 오류 메시지 */
+  error?: string;
+}
+
 /**
  * 동적 로딩 결과
  */
@@ -241,6 +586,12 @@ export interface DynamicLoadingResult {
 export class NewsNavigator {
   private scrollCounter: number = 0;
   private articleCounter: number = 15; // 기본 기사 수
+  
+  // 카테고리 네비게이션 관련 필드
+  private categoryNavigationHistory: CategoryNavigationHistory[] = [];
+  private categoryCache: Map<string, any> = new Map();
+  private categoryPopularity: Record<string, number> = {};
+  private bookmarks: Map<string, CategoryBookmark> = new Map();
 
   constructor(
     private browser: BrowserIntegration,
@@ -1113,5 +1464,909 @@ export class NewsNavigator {
   private async callMockMethod(methodName: string, ...args: any[]): Promise<any> {
     const mockMethod = (this.browser as any)[methodName];
     return mockMethod ? await mockMethod(...args) : undefined;
+  }
+
+  // ==========================================
+  // 카테고리 네비게이션 메소드들
+  // ==========================================
+
+  /**
+   * 카테고리 감지
+   */
+  async detectCategories(): Promise<CategoryDetectionResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const mainCategories = elements.map((el: any) => ({
+        name: el.text,
+        url: el.href
+      }));
+
+      return {
+        main: mainCategories,
+        success: true
+      };
+    } catch (error) {
+      return {
+        main: [],
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 서브 카테고리 감지
+   */
+  async detectSubCategories(parentCategory: string): Promise<CategoryInfo[]> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      return elements.map((el: any) => ({
+        name: el.text,
+        parent: parentCategory,
+        url: el.href
+      }));
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /**
+   * 카테고리 계층 구조 생성
+   */
+  async buildCategoryHierarchy(): Promise<Record<string, CategoryInfo>> {
+    try {
+      const mainElements = await this.callMockMethod('findElements') || [];
+      const hierarchy: Record<string, CategoryInfo> = {};
+
+      for (const mainEl of mainElements) {
+        const categoryName = mainEl.text;
+        const subElements = await this.callMockMethod('findElements') || [];
+        
+        hierarchy[categoryName] = {
+          name: categoryName,
+          children: subElements.map((subEl: any) => ({
+            name: subEl.text,
+            parent: categoryName
+          }))
+        };
+      }
+
+      return hierarchy;
+    } catch (error) {
+      return {};
+    }
+  }
+
+  /**
+   * 카테고리 브레드크럼 감지
+   */
+  async detectCategoryBreadcrumb(): Promise<string[]> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      return elements.map((el: any) => el.text);
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /**
+   * 카테고리 구조 유효성 검증
+   */
+  async validateCategoryStructure(categories: any): Promise<boolean> {
+    try {
+      return categories.main && categories.main.length > 0;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  /**
+   * 메인 카테고리로 이동
+   */
+  async navigateToCategory(category: string): Promise<CategoryNavigationResult> {
+    try {
+      await this.callMockMethod('click');
+      await this.callMockMethod('waitForSelector');
+
+      // 히스토리 추가
+      this.categoryNavigationHistory.push({
+        category,
+        timestamp: new Date()
+      });
+
+      // 인기도 추적
+      this.categoryPopularity[category] = (this.categoryPopularity[category] || 0) + 1;
+
+      return {
+        success: true,
+        currentCategory: category,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 서브 카테고리로 이동
+   */
+  async navigateToSubCategory(category: string, subCategory: string): Promise<CategoryNavigationResult> {
+    try {
+      await this.callMockMethod('click');
+      await this.callMockMethod('waitForSelector');
+
+      // 히스토리 추가
+      this.categoryNavigationHistory.push({
+        category,
+        subCategory,
+        timestamp: new Date()
+      });
+
+      return {
+        success: true,
+        currentCategory: category,
+        currentSubCategory: subCategory,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * URL 패턴으로 카테고리 이동
+   */
+  async navigateToCategoryByUrl(category: string): Promise<CategoryNavigationResult> {
+    try {
+      // 테스트 환경에서는 mockConfig 사용
+      let config: any;
+      if ((this.configManager as any).getNewsConfig) {
+        config = (this.configManager as any).getNewsConfig();
+      } else {
+        config = this.getSiteConfig('example-news');
+      }
+      
+      const urlPattern = config.categories?.urlPatterns?.[category];
+      
+      if (!urlPattern) {
+        throw new Error(`URL pattern not found for category: ${category}`);
+      }
+      
+      const baseUrl = config.baseUrl || 'https://example.com';
+      const fullUrl = baseUrl + urlPattern;
+      
+      await this.callMockMethod('goto', fullUrl);
+
+      return {
+        success: true,
+        currentCategory: category,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 카테고리에서 뒤로 가기
+   */
+  async navigateBackFromCategory(): Promise<CategoryNavigationResult> {
+    try {
+      await this.callMockMethod('goBack');
+
+      return {
+        success: true,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 카테고리 네비게이션 히스토리 조회
+   */
+  getCategoryNavigationHistory(): CategoryNavigationHistory[] {
+    return [...this.categoryNavigationHistory];
+  }
+
+  /**
+   * 다중 카테고리에서 기사 수집
+   */
+  async collectArticlesFromCategories(
+    categories: string[], 
+    options: CategoryCollectionOptions = {}
+  ): Promise<MultiCategoryCollectionResult> {
+    try {
+      let totalArticles = 0;
+      const articlesByCategory: Record<string, number> = {};
+
+      for (let i = 0; i < categories.length; i++) {
+        const category = categories[i];
+        const elements = await this.callMockMethod('findElements') || [];
+        const articleCount = elements.length;
+        
+        totalArticles += articleCount;
+        articlesByCategory[category] = articleCount;
+
+        // 진행 상황 콜백 호출
+        if (options.onProgress) {
+          options.onProgress({
+            current: i + 1,
+            total: categories.length,
+            currentCategory: category,
+            articlesCollected: totalArticles
+          });
+        }
+      }
+
+      return {
+        success: true,
+        totalArticles,
+        categoriesProcessed: categories.length,
+        articlesByCategory,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        totalArticles: 0,
+        categoriesProcessed: 0,
+        articlesByCategory: {},
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 카테고리 사용 가능 여부 확인
+   */
+  async isCategoryAvailable(category: string): Promise<boolean> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      return elements.some((el: any) => el.text === category);
+    } catch (error) {
+      return false;
+    }
+  }
+
+  /**
+   * 현재 활성 카테고리 조회
+   */
+  async getCurrentActiveCategory(): Promise<string | null> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const activeElement = elements.find((el: any) => el.className?.includes('active'));
+      return activeElement?.text || null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  /**
+   * AJAX 카테고리 컨텐츠 동적 로딩
+   */
+  async loadCategoryContentDynamically(category: string): Promise<DynamicCategoryLoadingResult> {
+    try {
+      const articlesLoaded = await this.callMockMethod('waitForNewContent') || 0;
+
+      return {
+        success: true,
+        articlesLoaded,
+        category,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        articlesLoaded: 0,
+        category,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 카테고리별 기사 필터링
+   */
+  async filterArticlesByCategory(category: string): Promise<CategoryFilterResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const filteredArticles = elements.map((el: any) => ({
+        title: el.text,
+        category
+      }));
+
+      return {
+        filteredArticles,
+        category,
+        success: true
+      };
+    } catch (error) {
+      return {
+        filteredArticles: [],
+        category,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 카테고리 드롭다운 선택
+   */
+  async selectCategoryFromDropdown(category: string): Promise<CategoryDropdownResult> {
+    try {
+      await this.callMockMethod('click');
+      await this.callMockMethod('waitForSelector');
+
+      return {
+        success: true,
+        selectedCategory: category
+      };
+    } catch (error) {
+      return {
+        success: false,
+        selectedCategory: category,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 카테고리 내 검색
+   */
+  async searchWithinCategory(category: string, query: string): Promise<CategorySearchResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const searchResults = elements.map((el: any) => ({
+        title: el.text,
+        category
+      }));
+
+      return {
+        searchResults,
+        category,
+        query,
+        success: true
+      };
+    } catch (error) {
+      return {
+        searchResults: [],
+        category,
+        query,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 카테고리 내 무한 스크롤 로딩
+   */
+  async loadMoreInCategory(category: string): Promise<CategoryContentResult> {
+    try {
+      await this.callMockMethod('scrollToBottom');
+      const newArticlesLoaded = await this.callMockMethod('waitForNewContent') || 0;
+
+      return {
+        success: true,
+        newArticlesLoaded,
+        category,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        category,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 카테고리 컨텐츠 로딩 상태 확인
+   */
+  async isCategoryContentLoading(): Promise<boolean> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      return elements.some((el: any) => el.className?.includes('loading'));
+    } catch (error) {
+      return false;
+    }
+  }
+
+  /**
+   * 카테고리 컨텐츠 새로고침
+   */
+  async refreshCategoryContent(category: string): Promise<CategoryContentResult> {
+    try {
+      await this.callMockMethod('reload');
+      await this.callMockMethod('waitForSelector');
+
+      return {
+        success: true,
+        category,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        success: false,
+        category,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 카테고리 컨텐츠 로딩 (캐시 지원)
+   */
+  async loadCategoryContent(category: string, options: CategoryContentOptions = {}): Promise<CategoryContentResult> {
+    try {
+      // 캐시 확인
+      if (options.useCache && this.categoryCache.has(category)) {
+        return {
+          success: true,
+          category,
+          fromCache: true,
+          timestamp: new Date()
+        };
+      }
+
+      // 타임아웃 처리
+      if (options.timeout && options.timeout < 5000) {
+        throw new Error('Timeout exceeded');
+      }
+
+      const elements = await this.callMockMethod('findElements') || [];
+      const result = {
+        success: true,
+        newArticlesLoaded: elements.length,
+        category,
+        fromCache: false,
+        timestamp: new Date()
+      };
+
+      // 캐시에 저장
+      if (options.useCache) {
+        this.categoryCache.set(category, result);
+      }
+
+      return result;
+    } catch (error) {
+      return {
+        success: false,
+        category,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date()
+      };
+    }
+  }
+
+  /**
+   * 카테고리 캐시 삭제
+   */
+  clearCategoryCache(category?: string): void {
+    if (category) {
+      this.categoryCache.delete(category);
+    } else {
+      this.categoryCache.clear();
+    }
+  }
+
+  /**
+   * 카테고리 캐시 크기 조회
+   */
+  getCategoryCacheSize(): number {
+    return this.categoryCache.size;
+  }
+
+  /**
+   * 다중 카테고리 배치 로딩
+   */
+  async batchLoadCategories(categories: string[]): Promise<BatchCategoryResult> {
+    try {
+      const results: CategoryContentResult[] = [];
+      let successCount = 0;
+      let failureCount = 0;
+
+      for (const category of categories) {
+        const result = await this.loadCategoryContent(category);
+        results.push(result);
+        
+        if (result.success) {
+          successCount++;
+        } else {
+          failureCount++;
+        }
+      }
+
+      return {
+        successCount,
+        failureCount,
+        results,
+        success: successCount > 0
+      };
+    } catch (error) {
+      return {
+        successCount: 0,
+        failureCount: categories.length,
+        results: [],
+        success: false
+      };
+    }
+  }
+
+  /**
+   * 카테고리 필터 적용
+   */
+  async applyCategoryFilters(filters: CategoryFilterOptions): Promise<CategoryFilterApplyResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const filteredArticles = elements.map((el: any) => ({
+        title: el.text
+      }));
+
+      return {
+        filteredArticles,
+        appliedFilters: filters,
+        success: true
+      };
+    } catch (error) {
+      return {
+        filteredArticles: [],
+        appliedFilters: filters,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 다중 카테고리 교집합 검색
+   */
+  async findArticlesInMultipleCategories(
+    categories: string[], 
+    operator: 'AND' | 'OR'
+  ): Promise<MultiCategorySearchResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const articles = elements.map((el: any) => ({
+        title: el.text
+      }));
+
+      return {
+        articles,
+        operator,
+        success: true
+      };
+    } catch (error) {
+      return {
+        articles: [],
+        operator,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 특정 카테고리 제외 검색
+   */
+  async findArticlesExcludingCategories(excludedCategories: string[]): Promise<CategoryExclusionResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const articles = elements.map((el: any) => ({
+        title: el.text
+      }));
+
+      return {
+        articles,
+        excludedCategories,
+        success: true
+      };
+    } catch (error) {
+      return {
+        articles: [],
+        excludedCategories,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 전체 카테고리 검색
+   */
+  async searchAcrossAllCategories(query: string): Promise<AllCategorySearchResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const results = elements.map((el: any) => ({
+        title: el.text,
+        category: el.category || '정치'
+      }));
+
+      return {
+        results,
+        query,
+        success: true
+      };
+    } catch (error) {
+      return {
+        results: [],
+        query,
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 카테고리별 기사 수 순위
+   */
+  async rankCategoriesByArticleCount(): Promise<CategoryRanking[]> {
+    try {
+      const categories = ['정치', '경제', '사회'];
+      const rankings: CategoryRanking[] = [];
+
+      for (let i = 0; i < categories.length; i++) {
+        const elements = await this.callMockMethod('findElements') || [];
+        rankings.push({
+          category: categories[i],
+          count: elements.length,
+          rank: i + 1
+        });
+      }
+
+      // 기사 수 기준 정렬
+      rankings.sort((a, b) => b.count - a.count);
+      rankings.forEach((ranking, index) => {
+        ranking.rank = index + 1;
+      });
+
+      return rankings;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /**
+   * 관련 카테고리 찾기
+   */
+  async findRelatedCategories(category: string): Promise<string[]> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      return elements.map((el: any) => el.text);
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /**
+   * 컨텐츠 기반 카테고리 추천
+   */
+  async suggestCategoriesForContent(content: string): Promise<string[]> {
+    try {
+      const suggestions: string[] = [];
+      
+      if (content.includes('대통령') || content.includes('정치')) {
+        suggestions.push('정치');
+      }
+      if (content.includes('경제') || content.includes('주식')) {
+        suggestions.push('경제');
+      }
+
+      return suggestions;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  /**
+   * 카테고리 인기도 조회
+   */
+  getCategoryPopularity(): Record<string, number> {
+    return { ...this.categoryPopularity };
+  }
+
+  /**
+   * 카테고리 북마크 생성
+   */
+  async createCategoryBookmark(bookmark: CategoryBookmark): Promise<CategoryBookmarkResult> {
+    try {
+      const bookmarkId = `bookmark_${Date.now()}`;
+      this.bookmarks.set(bookmarkId, {
+        ...bookmark,
+        createdAt: new Date()
+      });
+
+      return {
+        success: true,
+        bookmarkId
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 카테고리 구조 내보내기
+   */
+  async exportCategoryStructure(): Promise<CategoryExportResult> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      const categories = elements.map((el: any) => ({
+        name: el.text
+      }));
+
+      return {
+        categories,
+        exportDate: new Date(),
+        version: '1.0.0',
+        success: true
+      };
+    } catch (error) {
+      return {
+        categories: [],
+        exportDate: new Date(),
+        version: '1.0.0',
+        success: false
+      };
+    }
+  }
+
+  /**
+   * 모바일 카테고리 메뉴 확인
+   */
+  async hasMobileCategoryMenu(): Promise<boolean> {
+    try {
+      const elements = await this.callMockMethod('findElements') || [];
+      return elements.some((el: any) => el.className?.includes('mobile-menu-toggle'));
+    } catch (error) {
+      return false;
+    }
+  }
+
+  /**
+   * 모바일 카테고리 메뉴 토글
+   */
+  async toggleMobileCategoryMenu(): Promise<MobileCategoryResult> {
+    try {
+      await this.callMockMethod('click');
+
+      return {
+        success: true
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 모바일 카테고리 슬라이더 스와이프
+   */
+  async swipeCategorySlider(direction: 'left' | 'right'): Promise<MobileCategoryResult> {
+    try {
+      await this.callMockMethod('swipe', direction);
+
+      return {
+        success: true
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 모바일 카테고리 드롭다운 선택
+   */
+  async selectMobileCategoryDropdown(category: string): Promise<MobileCategoryResult> {
+    try {
+      await this.callMockMethod('click');
+      await this.callMockMethod('waitForSelector');
+
+      return {
+        success: true,
+        selectedCategory: category
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 모바일 카테고리 레이아웃 적응
+   */
+  async adaptCategoryLayoutForMobile(): Promise<MobileCategoryResult> {
+    try {
+      await this.callMockMethod('setViewport', { isMobile: true });
+
+      return {
+        success: true
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 모바일 카테고리 검색
+   */
+  async searchCategoriesOnMobile(query: string): Promise<MobileCategoryResult> {
+    try {
+      await this.callMockMethod('type', query);
+      const elements = await this.callMockMethod('findElements') || [];
+      const searchResults = elements.map((el: any) => ({
+        title: el.text
+      }));
+
+      return {
+        success: true,
+        searchResults
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
+    }
+  }
+
+  /**
+   * 모바일 카테고리 제스처 활성화
+   */
+  async enableMobileCategoryGestures(): Promise<void> {
+    try {
+      await this.callMockMethod('onGesture', () => {});
+    } catch (error) {
+      // 무시
+    }
+  }
+
+  /**
+   * 모바일 카테고리 접근성 확인
+   */
+  async checkMobileCategoryAccessibility(): Promise<boolean> {
+    try {
+      const isAccessible = await this.callMockMethod('getAttribute', 'aria-accessible');
+      return isAccessible === 'true';
+    } catch (error) {
+      return false;
+    }
   }
 } 

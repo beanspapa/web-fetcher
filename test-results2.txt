@@ -1,0 +1,84 @@
+
+> web-fetcher@1.0.0 test
+> vitest test/category-navigation.test.ts
+
+
+[1m[44m DEV [49m[22m [34mv3.2.4 [39m[90mC:/dev/web-fetcher[39m
+
+ [31m❯[39m test/category-navigation.test.ts [2m([22m[2m45 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 32[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m계층적 카테고리 감지[2m > [22mshould detect main categories[32m 3[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m계층적 카테고리 감지[2m > [22mshould detect sub-categories for main category[32m 1[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m계층적 카테고리 감지[2m > [22mshould build category hierarchy tree[32m 1[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m계층적 카테고리 감지[2m > [22mshould detect category breadcrumb path[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m계층적 카테고리 감지[2m > [22mshould validate category structure[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 네비게이션[2m > [22mshould navigate to main category[32m 1[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 네비게이션[2m > [22mshould navigate to sub-category[32m 0[2mms[22m[39m
+[31m   [31m×[31m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 네비게이션[2m > [22mshould navigate using category URL pattern[39m[32m 7[2mms[22m[39m
+[31m     → expected false to be true // Object.is equality[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 네비게이션[2m > [22mshould handle category navigation with back button[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 네비게이션[2m > [22mshould track category navigation history[32m 1[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m다중 카테고리 처리[2m > [22mshould collect articles from multiple categories[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m다중 카테고리 처리[2m > [22mshould handle category processing with progress callback[32m 1[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m다중 카테고리 처리[2m > [22mshould handle category navigation errors gracefully[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m다중 카테고리 처리[2m > [22mshould detect category availability[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m다중 카테고리 처리[2m > [22mshould get current active category[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould handle AJAX category loading[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould filter articles by category dynamically[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould handle category dropdown selection[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould search within specific category[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould handle infinite scroll within category[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould detect category content loading state[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould handle category content refresh[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould cache category content[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould clear category cache[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould handle category loading timeout[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould batch load multiple categories[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m동적 카테고리 로딩[2m > [22mshould handle category filter combinations[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould combine multiple categories for intersection[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould combine multiple categories for union[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould exclude specific categories[32m 3[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould search across all categories[32m 1[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould rank categories by article count[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould find related categories[32m 1[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould suggest categories based on content[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould track category popularity[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould create category bookmarks[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 조합 및 검색[2m > [22mshould export category structure[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould detect mobile category menu[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould toggle mobile category menu[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould navigate categories in mobile slider[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould handle mobile category dropdown[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould adapt category layout for mobile[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould handle mobile category search[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould detect mobile category gestures[32m 0[2mms[22m[39m
+   [32m✓[39m NewsNavigator - 카테고리 네비게이션[2m > [22m모바일 반응형 카테고리[2m > [22mshould handle mobile category accessibility[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m test/category-navigation.test.ts[2m > [22mNewsNavigator - 카테고리 네비게이션[2m > [22m카테고리 네비게이션[2m > [22mshould navigate using category URL pattern
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m test/category-navigation.test.ts:[2m209:30[22m[39m
+    [90m207| [39m      [35mconst[39m result [33m=[39m [35mawait[39m navigator[33m.[39m[34mnavigateToCategoryByUrl[39m([32m'정치'[39m)[33m;[39m
+    [90m208| [39m      
+    [90m209| [39m      [34mexpect[39m(result[33m.[39msuccess)[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                             [31m^[39m
+    [90m210| [39m      expect(mockBrowser.goto).toHaveBeenCalledWith(expect.stringConta…
+    [90m211| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m44 passed[39m[22m[90m (45)[39m
+[2m   Start at [22m 17:01:07
+[2m   Duration [22m 688ms[2m (transform 70ms, setup 0ms, collect 76ms, tests 32ms, environment 289ms, prepare 88ms)[22m
+
+[1m[41m FAIL [49m[22m [31mTests failed. Watching for file changes...[39m
+       [2mpress [22m[1mh[22m[2m to show help[22m[2m, [22m[2mpress [22m[1mq[22m[2m to quit[22m
