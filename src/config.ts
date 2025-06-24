@@ -17,6 +17,28 @@ export interface NewsSiteSelectors {
   publishDate: string;
   /** 카테고리 선택자 (선택사항) */
   category?: string;
+  /** 기사 목록 컨테이너 선택자 (동적 로딩용) */
+  articleList?: string;
+  /** 개별 기사 링크 선택자 (동적 로딩용) */
+  articleLink?: string;
+  /** 기사 요약/발췌 선택자 (동적 로딩용) */
+  excerpt?: string;
+  /** "더보기" 버튼 선택자 (동적 로딩용) */
+  loadMoreButton?: string;
+  /** 무한 스크롤 트리거 선택자 (동적 로딩용) */
+  infiniteScrollTrigger?: string;
+  /** 페이지네이션 컨테이너 선택자 */
+  pagination?: string;
+  /** 다음 페이지 버튼 선택자 */
+  nextButton?: string;
+  /** 이전 페이지 버튼 선택자 */
+  prevButton?: string;
+  /** 페이지 번호 선택자 */
+  pageNumbers?: string;
+  /** 현재 페이지 선택자 */
+  currentPage?: string;
+  /** 전체 페이지 수 선택자 */
+  totalPages?: string;
 }
 
 /**
@@ -40,6 +62,19 @@ export interface NewsSiteConfig {
   };
   /** 요청 간 지연 시간 (밀리초) */
   requestDelay?: number;
+  /** 페이지네이션 설정 */
+  pagination?: {
+    /** 페이지네이션 타입 */
+    type: 'numbered' | 'next-prev' | 'load-more';
+    /** 최대 페이지 수 */
+    maxPages?: number;
+    /** 페이지당 기사 수 */
+    pageSize?: number;
+    /** URL 패턴 (페이지 번호 기반) */
+    urlPattern?: string;
+    /** 자동 감지 여부 */
+    autoDetect?: boolean;
+  };
 }
 
 /**
